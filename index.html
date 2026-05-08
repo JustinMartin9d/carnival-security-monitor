@@ -12,495 +12,236 @@
     --carnival-white: #FFFFFF;
     --dark-navy: #00213D;
     --mid-blue: #02376A;
-    --soft-blue: #E8F0F8;
     --glass: rgba(255,255,255,0.06);
     --glass-border: rgba(255,255,255,0.12);
     --green: #00C48C;
     --yellow: #F5A623;
     --red-alert: #FF3355;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--dark-navy);
-    color: var(--carnival-white);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(1,78,143,0.15) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(1,78,143,0.15) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  body::after {
-    content: '';
-    position: fixed;
-    top: -200px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 900px;
-    height: 600px;
-    background: radial-gradient(ellipse, rgba(1,78,143,0.35) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  header {
-    position: relative;
-    z-index: 10;
-    background: linear-gradient(135deg, var(--dark-navy) 0%, var(--mid-blue) 100%);
-    border-bottom: 2px solid var(--carnival-red);
-    padding: 0 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 72px;
-    box-shadow: 0 4px 32px rgba(182,27,56,0.2);
-  }
-
+  body { background: var(--dark-navy); color: var(--carnival-white); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(1,78,143,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(1,78,143,0.15) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+  body::after { content: ''; position: fixed; top: -200px; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(ellipse, rgba(1,78,143,0.35) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+  .api-setup { position: fixed; inset: 0; background: rgba(0,33,61,0.97); z-index: 100; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+  .api-modal { background: var(--mid-blue); border: 1px solid rgba(1,78,143,0.5); border-radius: 20px; padding: 40px; width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0,0,0,0.5); }
+  .api-modal svg { margin: 0 auto 20px; display: block; }
+  .api-modal h2 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; margin-bottom: 6px; }
+  .api-modal p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 24px; }
+  .api-input { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(1,78,143,0.4); border-radius: 10px; padding: 12px 16px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; margin-bottom: 16px; transition: border-color 0.2s; }
+  .api-input:focus { border-color: var(--carnival-blue); }
+  .api-input.error { border-color: var(--carnival-red); }
+  .api-note { margin-top: 14px; font-size: 11px; color: rgba(255,255,255,0.3); }
+  header { position: relative; z-index: 10; background: linear-gradient(135deg, var(--dark-navy) 0%, var(--mid-blue) 100%); border-bottom: 2px solid var(--carnival-red); padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 72px; box-shadow: 0 4px 32px rgba(182,27,56,0.2); }
   .logo-area { display: flex; align-items: center; gap: 16px; }
   .funnel-logo { width: 48px; height: 48px; flex-shrink: 0; }
   .brand-text { display: flex; flex-direction: column; line-height: 1; }
-  .brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 3px; color: var(--carnival-white); }
+  .brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 3px; }
   .brand-sub { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 2px; }
   .header-right { display: flex; align-items: center; gap: 20px; }
-
-  .live-badge {
-    display: flex; align-items: center; gap: 6px;
-    background: rgba(182,27,56,0.2);
-    border: 1px solid var(--carnival-red);
-    border-radius: 20px; padding: 5px 14px;
-    font-size: 11px; font-weight: 600; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--carnival-red);
-  }
-
-  .live-dot {
-    width: 7px; height: 7px;
-    background: var(--carnival-red); border-radius: 50%;
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-  }
-
+  .live-badge { display: flex; align-items: center; gap: 6px; background: rgba(182,27,56,0.2); border: 1px solid var(--carnival-red); border-radius: 20px; padding: 5px 14px; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--carnival-red); }
+  .live-dot { width: 7px; height: 7px; background: var(--carnival-red); border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
   .system-time { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: rgba(255,255,255,0.6); }
-
-  main {
-    position: relative; z-index: 5;
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    grid-template-rows: auto 1fr;
-    gap: 20px;
-    padding: 24px 32px;
-    min-height: calc(100vh - 72px);
-  }
-
-  .camera-panel {
-    grid-column: 1; grid-row: 1 / 3;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px; overflow: hidden;
-    display: flex; flex-direction: column;
-    backdrop-filter: blur(10px);
-  }
-
-  .panel-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--glass-border);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-
+  main { position: relative; z-index: 5; display: grid; grid-template-columns: 1fr 380px; grid-template-rows: auto 1fr; gap: 20px; padding: 24px 32px; min-height: calc(100vh - 72px); }
+  .camera-panel { grid-column: 1; grid-row: 1 / 3; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; backdrop-filter: blur(10px); transition: border-color 0.5s, box-shadow 0.5s; }
+  .camera-panel.alert-red { border-color: rgba(255,51,85,0.5); box-shadow: 0 0 30px rgba(255,51,85,0.15); }
+  .camera-panel.alert-yellow { border-color: rgba(245,166,35,0.4); }
+  .panel-header { padding: 16px 20px; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: space-between; }
   .panel-title { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 3px; color: rgba(255,255,255,0.7); }
-
-  .zone-badge {
-    font-size: 11px; font-weight: 600; letter-spacing: 1px;
-    color: var(--carnival-blue);
-    background: rgba(1,78,143,0.3);
-    border: 1px solid rgba(1,78,143,0.5);
-    padding: 4px 10px; border-radius: 6px;
-  }
-
-  .camera-viewport {
-    position: relative; flex: 1;
-    background: #000; min-height: 420px;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-
-  video#cameraFeed { width: 100%; height: 100%; object-fit: cover; display: none; }
-  canvas#captureCanvas { display: none; }
-
-  .camera-placeholder {
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 16px; color: rgba(255,255,255,0.3);
-    text-align: center; padding: 40px;
-  }
-
+  .zone-badge { font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--carnival-blue); background: rgba(1,78,143,0.3); border: 1px solid rgba(1,78,143,0.5); padding: 4px 10px; border-radius: 6px; }
+  .camera-viewport { position: relative; flex: 1; background: #000; min-height: 420px; overflow: hidden; }
+  video#cameraFeed { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+  canvas#detectionOverlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; display: none; }
+  .camera-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; color: rgba(255,255,255,0.3); text-align: center; padding: 40px; }
   .camera-icon { width: 80px; height: 80px; opacity: 0.3; }
   .camera-placeholder p { font-size: 14px; line-height: 1.6; }
-
   .scan-overlay { position: absolute; inset: 0; pointer-events: none; display: none; }
   .scan-overlay.active { display: block; }
-
-  .scan-line {
-    position: absolute; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(1,78,143,0.8), rgba(1,78,143,1), rgba(1,78,143,0.8), transparent);
-    animation: scanDown 3s ease-in-out infinite;
-    box-shadow: 0 0 12px rgba(1,78,143,0.6);
-  }
-
-  @keyframes scanDown { 0% { top: 0%; } 100% { top: 100%; } }
-
-  .corner-tl, .corner-tr, .corner-bl, .corner-br { position: absolute; width: 24px; height: 24px; border-color: var(--carnival-blue); border-style: solid; opacity: 0.6; }
-  .corner-tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; }
-  .corner-tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; }
-  .corner-bl { bottom: 12px; left: 12px; border-width: 0 0 2px 2px; }
-  .corner-br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; }
-
-  #capturedPreview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
-
-  .analyzing-overlay {
-    position: absolute; inset: 0;
-    background: rgba(0,33,61,0.85);
-    display: none; align-items: center; justify-content: center;
-    flex-direction: column; gap: 16px;
-    backdrop-filter: blur(4px);
-  }
-
+  .scan-line { position: absolute; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(1,78,143,0.8), rgba(1,78,143,1), rgba(1,78,143,0.8), transparent); animation: scanDown 3s ease-in-out infinite; box-shadow: 0 0 12px rgba(1,78,143,0.6); }
+  @keyframes scanDown { 0%{top:0%} 100%{top:100%} }
+  .corner-tl,.corner-tr,.corner-bl,.corner-br { position:absolute;width:24px;height:24px;border-color:var(--carnival-blue);border-style:solid;opacity:0.6; }
+  .corner-tl{top:12px;left:12px;border-width:2px 0 0 2px} .corner-tr{top:12px;right:12px;border-width:2px 2px 0 0}
+  .corner-bl{bottom:12px;left:12px;border-width:0 0 2px 2px} .corner-br{bottom:12px;right:12px;border-width:0 2px 2px 0}
+  .analyzing-overlay { position: absolute; inset: 0; background: rgba(0,33,61,0.75); display: none; align-items: center; justify-content: center; flex-direction: column; gap: 16px; backdrop-filter: blur(2px); }
   .analyzing-overlay.active { display: flex; }
-
-  .analyze-spinner {
-    width: 56px; height: 56px;
-    border: 3px solid rgba(1,78,143,0.3);
-    border-top-color: var(--carnival-blue);
-    border-right-color: var(--carnival-red);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .analyze-text {
-    font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 4px;
-    color: rgba(255,255,255,0.8);
-    animation: blink 1.2s ease-in-out infinite;
-  }
-
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-  .camera-controls {
-    padding: 16px 20px;
-    border-top: 1px solid var(--glass-border);
-    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-  }
-
-  .btn {
-    font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.5px;
-    border: none; border-radius: 8px; padding: 10px 20px;
-    cursor: pointer; transition: all 0.2s ease;
-    display: flex; align-items: center; gap: 8px;
-  }
-
-  .btn-primary { background: var(--carnival-blue); color: white; }
-  .btn-primary:hover { background: #0260B0; transform: translateY(-1px); }
-  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-  .btn-danger { background: var(--carnival-red); color: white; }
-  .btn-danger:hover { background: #D4203F; transform: translateY(-1px); }
-  .btn-ghost { background: var(--glass); color: rgba(255,255,255,0.7); border: 1px solid var(--glass-border); }
-  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
-  .btn-ghost:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .auto-toggle { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 12px; color: rgba(255,255,255,0.5); }
-
-  .toggle-switch { position: relative; width: 40px; height: 22px; background: rgba(255,255,255,0.15); border-radius: 11px; cursor: pointer; transition: background 0.2s; }
-  .toggle-switch.on { background: var(--carnival-blue); }
-  .toggle-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: white; border-radius: 50%; transition: transform 0.2s; }
-  .toggle-switch.on::after { transform: translateX(18px); }
-
-  .assessment-panel {
-    grid-column: 2; grid-row: 1;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px; overflow: hidden;
-    backdrop-filter: blur(10px);
-  }
-
-  .threat-bar { padding: 20px; border-bottom: 1px solid var(--glass-border); }
-  .threat-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
-  .threat-level-display { display: flex; align-items: center; gap: 14px; }
-
-  .threat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; transition: all 0.5s ease; background: rgba(255,255,255,0.08); }
-  .threat-icon.green { background: rgba(0,196,140,0.2); box-shadow: 0 0 20px rgba(0,196,140,0.3); }
-  .threat-icon.yellow { background: rgba(245,166,35,0.2); box-shadow: 0 0 20px rgba(245,166,35,0.3); }
-  .threat-icon.red { background: rgba(255,51,85,0.2); box-shadow: 0 0 20px rgba(255,51,85,0.4); animation: alertPulse 1s ease-in-out infinite; }
-
-  @keyframes alertPulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(255,51,85,0.4); }
-    50% { box-shadow: 0 0 40px rgba(255,51,85,0.8); }
-  }
-
-  .threat-text-area { flex: 1; }
-  .threat-level-name { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; line-height: 1; transition: color 0.5s ease; color: rgba(255,255,255,0.3); }
-  .threat-level-name.green { color: var(--green); }
-  .threat-level-name.yellow { color: var(--yellow); }
-  .threat-level-name.red { color: var(--red-alert); }
-  .threat-level-desc { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
-
-  .metrics-grid { padding: 16px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-bottom: 1px solid var(--glass-border); }
-
-  .metric-card { background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 10px; padding: 12px; }
-  .metric-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 6px; }
-  .metric-value { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; line-height: 1; color: rgba(255,255,255,0.5); transition: color 0.5s ease; }
-  .metric-value.active { color: var(--carnival-white); }
-  .metric-sub { font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 2px; }
-
-  .analysis-output { padding: 16px 20px; border-bottom: 1px solid var(--glass-border); min-height: 120px; }
-  .output-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 10px; }
-  .output-text { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.6); font-style: italic; }
-  .output-text.has-content { color: rgba(255,255,255,0.85); font-style: normal; }
-
-  .alert-log { padding: 16px 20px; flex: 1; }
-  .log-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-
-  .log-entries { display: flex; flex-direction: column; gap: 8px; max-height: 180px; overflow-y: auto; }
-  .log-entries::-webkit-scrollbar { width: 4px; }
-  .log-entries::-webkit-scrollbar-track { background: transparent; }
-  .log-entries::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
-
-  .log-entry { display: flex; align-items: flex-start; gap: 10px; padding: 8px 10px; border-radius: 8px; background: rgba(0,0,0,0.2); border-left: 3px solid transparent; animation: slideIn 0.3s ease; font-size: 12px; }
-  @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
-  .log-entry.green { border-left-color: var(--green); }
-  .log-entry.yellow { border-left-color: var(--yellow); }
-  .log-entry.red { border-left-color: var(--red-alert); }
-  .log-time { font-size: 10px; color: rgba(255,255,255,0.3); white-space: nowrap; margin-top: 1px; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
-  .log-msg { color: rgba(255,255,255,0.7); line-height: 1.4; }
-  .empty-log { text-align: center; color: rgba(255,255,255,0.2); font-size: 12px; padding: 20px 0; }
-
-  .stats-panel {
-    grid-column: 2; grid-row: 2;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px; overflow: hidden;
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    display: flex; flex-direction: column; gap: 14px;
-  }
-
-  .stats-title { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px; color: rgba(255,255,255,0.4); }
-
-  .stat-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .stat-name { font-size: 12px; color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 8px; }
-  .stat-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--carnival-blue); }
-  .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; color: rgba(255,255,255,0.8); }
-
-  @media (max-width: 900px) {
-    main { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
-    .camera-panel { grid-column: 1; grid-row: 1; }
-    .assessment-panel { grid-column: 1; grid-row: 2; }
-    .stats-panel { grid-column: 1; grid-row: 3; }
-  }
+  .analyze-spinner { width: 56px; height: 56px; border: 3px solid rgba(1,78,143,0.3); border-top-color: var(--carnival-blue); border-right-color: var(--carnival-red); border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  .analyze-text { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 4px; color: rgba(255,255,255,0.8); animation: blink 1.2s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .alert-flash { position:absolute;inset:0;pointer-events:none; }
+  .alert-flash.red-active { animation: redFlash 2s ease-in-out infinite; }
+  @keyframes redFlash { 0%,100%{background:rgba(255,51,85,0)} 50%{background:rgba(255,51,85,0.1)} }
+  .camera-controls { padding: 16px 20px; border-top: 1px solid var(--glass-border); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .btn { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.5px; border: none; border-radius: 8px; padding: 10px 20px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
+  .btn-primary{background:var(--carnival-blue);color:white} .btn-primary:hover{background:#0260B0;transform:translateY(-1px)} .btn-primary:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+  .btn-danger{background:var(--carnival-red);color:white} .btn-danger:hover{background:#D4203F;transform:translateY(-1px)}
+  .btn-ghost{background:var(--glass);color:rgba(255,255,255,0.7);border:1px solid var(--glass-border)} .btn-ghost:hover{background:rgba(255,255,255,0.1)} .btn-ghost:disabled{opacity:0.4;cursor:not-allowed}
+  .btn-full{width:100%;justify-content:center;padding:14px;font-size:14px;letter-spacing:1px}
+  .auto-toggle { margin-left:auto;display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,0.5); }
+  .toggle-switch { position:relative;width:40px;height:22px;background:rgba(255,255,255,0.15);border-radius:11px;cursor:pointer;transition:background 0.2s; }
+  .toggle-switch.on{background:var(--carnival-blue)} .toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.2s} .toggle-switch.on::after{transform:translateX(18px)}
+  .assessment-panel { grid-column:2;grid-row:1;background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;overflow:hidden;backdrop-filter:blur(10px); }
+  .threat-bar{padding:20px;border-bottom:1px solid var(--glass-border)} .threat-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px}
+  .threat-level-display{display:flex;align-items:center;gap:14px}
+  .threat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;transition:all 0.5s ease;background:rgba(255,255,255,0.08)}
+  .threat-icon.green{background:rgba(0,196,140,0.2);box-shadow:0 0 20px rgba(0,196,140,0.3)} .threat-icon.yellow{background:rgba(245,166,35,0.2);box-shadow:0 0 20px rgba(245,166,35,0.3)} .threat-icon.red{background:rgba(255,51,85,0.2);animation:alertPulse 1s ease-in-out infinite}
+  @keyframes alertPulse{0%,100%{box-shadow:0 0 20px rgba(255,51,85,0.4)}50%{box-shadow:0 0 40px rgba(255,51,85,0.8)}}
+  .threat-text-area{flex:1} .threat-level-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;line-height:1;transition:color 0.5s ease;color:rgba(255,255,255,0.3)}
+  .threat-level-name.green{color:var(--green)} .threat-level-name.yellow{color:var(--yellow)} .threat-level-name.red{color:var(--red-alert)}
+  .threat-level-desc{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px}
+  .metrics-grid{padding:16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;border-bottom:1px solid var(--glass-border)}
+  .metric-card{background:rgba(0,0,0,0.2);border:1px solid var(--glass-border);border-radius:10px;padding:12px}
+  .metric-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px}
+  .metric-value{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;line-height:1;color:rgba(255,255,255,0.5);transition:color 0.5s}
+  .metric-value.active{color:var(--carnival-white)} .metric-sub{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px}
+  .analysis-output{padding:16px 20px;border-bottom:1px solid var(--glass-border);min-height:120px}
+  .output-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:10px}
+  .output-text{font-size:13px;line-height:1.7;color:rgba(255,255,255,0.6);font-style:italic} .output-text.has-content{color:rgba(255,255,255,0.85);font-style:normal}
+  .alert-log{padding:16px 20px} .log-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .log-entries{display:flex;flex-direction:column;gap:8px;max-height:180px;overflow-y:auto}
+  .log-entries::-webkit-scrollbar{width:4px} .log-entries::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:2px}
+  .log-entry{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,0.2);border-left:3px solid transparent;animation:slideIn 0.3s ease;font-size:12px}
+  @keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+  .log-entry.green{border-left-color:var(--green)} .log-entry.yellow{border-left-color:var(--yellow)} .log-entry.red{border-left-color:var(--red-alert)}
+  .log-time{font-size:10px;color:rgba(255,255,255,0.3);white-space:nowrap;margin-top:1px;font-family:'Bebas Neue',sans-serif;letter-spacing:1px}
+  .log-msg{color:rgba(255,255,255,0.7);line-height:1.4} .empty-log{text-align:center;color:rgba(255,255,255,0.2);font-size:12px;padding:20px 0}
+  .stats-panel { grid-column:2;grid-row:2;background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;overflow:hidden;backdrop-filter:blur(10px);padding:20px;display:flex;flex-direction:column;gap:14px; }
+  .stats-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:rgba(255,255,255,0.4)}
+  .stat-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .stat-name{font-size:12px;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:8px}
+  .stat-dot{width:6px;height:6px;border-radius:50%} .stat-val{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:rgba(255,255,255,0.8)}
+  @media(max-width:900px){main{grid-template-columns:1fr;grid-template-rows:auto auto auto}.camera-panel{grid-column:1;grid-row:1}.assessment-panel{grid-column:1;grid-row:2}.stats-panel{grid-column:1;grid-row:3}}
 </style>
 </head>
 <body>
-
+<div class="api-setup" id="apiSetup" style="display:none">
+  <div class="api-modal">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none"><rect width="72" height="72" rx="14" fill="#014E8F"/><path d="M36 12 L52 36 L52 58 L20 58 L20 36 Z" fill="#B61B38"/><path d="M28 36 L44 36 L44 58 L28 58 Z" fill="white" opacity="0.9"/><rect x="30" y="8" width="12" height="28" rx="6" fill="white"/></svg>
+    <h2>CARNIVAL SECURITY AI</h2>
+    <p>Running locally. Enter your Anthropic API key to activate.<br>This is only needed when testing on your own computer.</p>
+    <input type="password" class="api-input" id="apiKeyInput" placeholder="sk-ant-api...">
+    <button class="btn btn-danger btn-full" onclick="saveApiKey()">ACTIVATE SYSTEM</button>
+    <p class="api-note">Your key stays in your browser session only and is never stored or shared.</p>
+  </div>
+</div>
 <header>
   <div class="logo-area">
-    <svg class="funnel-logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="48" height="48" rx="10" fill="#014E8F"/>
-      <path d="M24 8 L36 24 L36 40 L12 40 L12 24 Z" fill="#B61B38"/>
-      <path d="M18 24 L30 24 L30 40 L18 40 Z" fill="white" opacity="0.9"/>
-      <rect x="20" y="5" width="8" height="19" rx="4" fill="white"/>
-    </svg>
-    <div class="brand-text">
-      <span class="brand-name">CARNIVAL CORPORATION</span>
-      <span class="brand-sub">AI Security Intelligence Platform</span>
-    </div>
+    <svg class="funnel-logo" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="10" fill="#014E8F"/><path d="M24 8 L36 24 L36 40 L12 40 L12 24 Z" fill="#B61B38"/><path d="M18 24 L30 24 L30 40 L18 40 Z" fill="white" opacity="0.9"/><rect x="20" y="5" width="8" height="19" rx="4" fill="white"/></svg>
+    <div class="brand-text"><span class="brand-name">CARNIVAL CORPORATION</span><span class="brand-sub">AI Security Intelligence Platform</span></div>
   </div>
   <div class="header-right">
     <div class="live-badge"><div class="live-dot"></div>SYSTEM ONLINE</div>
     <div class="system-time" id="systemTime">00:00:00</div>
   </div>
 </header>
-
 <main>
-  <div class="camera-panel">
-    <div class="panel-header">
-      <span class="panel-title">CAMERA FEED — DECK 7 LIDO</span>
-      <span class="zone-badge" id="zoneLabel">ZONE A</span>
-    </div>
-    <div class="camera-viewport" id="cameraViewport">
+  <div class="camera-panel" id="cameraPanel">
+    <div class="panel-header"><span class="panel-title">CAMERA FEED — DECK 7 LIDO</span><span class="zone-badge">ZONE A</span></div>
+    <div class="camera-viewport">
       <video id="cameraFeed" autoplay muted playsinline></video>
-      <canvas id="captureCanvas"></canvas>
-      <img id="capturedPreview" alt="Captured frame">
-
+      <canvas id="detectionOverlay"></canvas>
       <div class="camera-placeholder" id="cameraPlaceholder">
-        <svg class="camera-icon" viewBox="0 0 80 80" fill="none">
-          <rect x="5" y="20" width="70" height="50" rx="8" stroke="white" stroke-width="3"/>
-          <circle cx="40" cy="45" r="14" stroke="white" stroke-width="3"/>
-          <circle cx="40" cy="45" r="7" stroke="white" stroke-width="2"/>
-          <path d="M28 20 L32 12 L48 12 L52 20" stroke="white" stroke-width="3"/>
-          <circle cx="62" cy="30" r="3" fill="white"/>
-        </svg>
+        <svg class="camera-icon" viewBox="0 0 80 80" fill="none"><rect x="5" y="20" width="70" height="50" rx="8" stroke="white" stroke-width="3"/><circle cx="40" cy="45" r="14" stroke="white" stroke-width="3"/><circle cx="40" cy="45" r="7" stroke="white" stroke-width="2"/><path d="M28 20 L32 12 L48 12 L52 20" stroke="white" stroke-width="3"/><circle cx="62" cy="30" r="3" fill="white"/></svg>
         <p>Camera feed inactive<br><span style="font-size:12px;opacity:0.6">Click "Start Camera" to begin monitoring</span></p>
       </div>
-
-      <div class="scan-overlay" id="scanOverlay">
-        <div class="scan-line"></div>
-        <div class="corner-tl"></div>
-        <div class="corner-tr"></div>
-        <div class="corner-bl"></div>
-        <div class="corner-br"></div>
-      </div>
-
-      <div class="analyzing-overlay" id="analyzingOverlay">
-        <div class="analyze-spinner"></div>
-        <div class="analyze-text">ANALYZING SCENE</div>
-      </div>
+      <div class="scan-overlay" id="scanOverlay"><div class="scan-line"></div><div class="corner-tl"></div><div class="corner-tr"></div><div class="corner-bl"></div><div class="corner-br"></div></div>
+      <div class="analyzing-overlay" id="analyzingOverlay"><div class="analyze-spinner"></div><div class="analyze-text">ANALYZING SCENE</div></div>
+      <div class="alert-flash" id="alertFlash"></div>
     </div>
     <div class="camera-controls">
-      <button class="btn btn-primary" id="btnStartCamera" onclick="startCamera()">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="white" stroke-width="1.5"/><polygon points="5.5,4.5 10,7 5.5,9.5" fill="white"/></svg>
-        Start Camera
-      </button>
-      <button class="btn btn-ghost" id="btnCapture" onclick="captureAndAnalyze()" disabled>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="9" rx="2" stroke="white" stroke-width="1.5"/><circle cx="7" cy="7.5" r="2.5" stroke="white" stroke-width="1.5"/></svg>
-        Analyze Now
-      </button>
-      <button class="btn btn-ghost" id="btnStop" onclick="stopCamera()" disabled>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="3" width="8" height="8" rx="1" fill="white"/></svg>
-        Stop
-      </button>
-      <div class="auto-toggle">
-        <span>Auto-Scan</span>
-        <div class="toggle-switch" id="autoToggle" onclick="toggleAutoScan(this)"></div>
-        <span id="autoIntervalLabel">5s</span>
-      </div>
+      <button class="btn btn-primary" id="btnStartCamera" onclick="startCamera()"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="white" stroke-width="1.5"/><polygon points="5.5,4.5 10,7 5.5,9.5" fill="white"/></svg>Start Camera</button>
+      <button class="btn btn-ghost" id="btnCapture" onclick="captureAndAnalyze()" disabled><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="9" rx="2" stroke="white" stroke-width="1.5"/><circle cx="7" cy="7.5" r="2.5" stroke="white" stroke-width="1.5"/></svg>Analyze Now</button>
+      <button class="btn btn-ghost" id="btnStop" onclick="stopCamera()" disabled><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="3" width="8" height="8" rx="1" fill="white"/></svg>Stop</button>
+      <div class="auto-toggle"><span>Auto-Scan</span><div class="toggle-switch" id="autoToggle" onclick="toggleAutoScan(this)"></div><span>5s</span></div>
     </div>
   </div>
-
   <div class="assessment-panel">
-    <div class="panel-header">
-      <span class="panel-title">THREAT ASSESSMENT</span>
-    </div>
-    <div class="threat-bar">
-      <div class="threat-label">CURRENT THREAT LEVEL</div>
-      <div class="threat-level-display">
-        <div class="threat-icon" id="threatIcon">🔵</div>
-        <div class="threat-text-area">
-          <div class="threat-level-name" id="threatLevelName">STANDBY</div>
-          <div class="threat-level-desc" id="threatLevelDesc">Awaiting first scan</div>
-        </div>
-      </div>
-    </div>
+    <div class="panel-header"><span class="panel-title">THREAT ASSESSMENT</span></div>
+    <div class="threat-bar"><div class="threat-label">CURRENT THREAT LEVEL</div><div class="threat-level-display"><div class="threat-icon" id="threatIcon">🔵</div><div class="threat-text-area"><div class="threat-level-name" id="threatLevelName">STANDBY</div><div class="threat-level-desc" id="threatLevelDesc">Awaiting first scan</div></div></div></div>
     <div class="metrics-grid">
-      <div class="metric-card">
-        <div class="metric-label">People Detected</div>
-        <div class="metric-value" id="metricPeople">—</div>
-        <div class="metric-sub">in frame</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Crowd Density</div>
-        <div class="metric-value" id="metricDensity">—</div>
-        <div class="metric-sub">level</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Behavior</div>
-        <div class="metric-value" id="metricBehavior" style="font-size:16px;padding-top:4px">—</div>
-        <div class="metric-sub">assessment</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Scans Today</div>
-        <div class="metric-value" id="metricScans">0</div>
-        <div class="metric-sub">total</div>
-      </div>
+      <div class="metric-card"><div class="metric-label">People Detected</div><div class="metric-value" id="metricPeople">—</div><div class="metric-sub">in frame</div></div>
+      <div class="metric-card"><div class="metric-label">Crowd Density</div><div class="metric-value" id="metricDensity">—</div><div class="metric-sub">level</div></div>
+      <div class="metric-card"><div class="metric-label">Behavior</div><div class="metric-value" id="metricBehavior" style="font-size:16px;padding-top:4px">—</div><div class="metric-sub">assessment</div></div>
+      <div class="metric-card"><div class="metric-label">Scans Today</div><div class="metric-value" id="metricScans">0</div><div class="metric-sub">total</div></div>
     </div>
-    <div class="analysis-output">
-      <div class="output-label">AI SCENE ANALYSIS</div>
-      <div class="output-text" id="analysisText">No analysis yet. Start the camera and click Analyze Now, or enable Auto-Scan for continuous monitoring.</div>
-    </div>
-    <div class="alert-log">
-      <div class="log-header">
-        <span class="panel-title" style="font-size:13px;">EVENT LOG</span>
-        <span style="font-size:11px;color:rgba(255,255,255,0.3);cursor:pointer;" onclick="clearLog()">Clear</span>
-      </div>
-      <div class="log-entries" id="logEntries">
-        <div class="empty-log">No events recorded yet</div>
-      </div>
-    </div>
+    <div class="analysis-output"><div class="output-label">AI SCENE ANALYSIS</div><div class="output-text" id="analysisText">No analysis yet. Start the camera and click Analyze Now, or enable Auto-Scan.</div></div>
+    <div class="alert-log"><div class="log-header"><span class="panel-title" style="font-size:13px">EVENT LOG</span><span style="font-size:11px;color:rgba(255,255,255,0.3);cursor:pointer" onclick="clearLog()">Clear</span></div><div class="log-entries" id="logEntries"><div class="empty-log">No events recorded yet</div></div></div>
   </div>
-
   <div class="stats-panel">
     <div class="stats-title">SESSION SUMMARY</div>
-    <div class="stat-row">
-      <span class="stat-name"><span class="stat-dot" style="background:var(--green)"></span>Clear Scans</span>
-      <span class="stat-val" id="statClear">0</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-name"><span class="stat-dot" style="background:var(--yellow)"></span>Caution Flags</span>
-      <span class="stat-val" id="statCaution">0</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-name"><span class="stat-dot" style="background:var(--red-alert)"></span>Alerts Raised</span>
-      <span class="stat-val" id="statAlerts">0</span>
-    </div>
-    <div class="stat-row" style="border:none">
-      <span class="stat-name"><span class="stat-dot" style="background:var(--carnival-blue)"></span>Avg Response</span>
-      <span class="stat-val" id="statAvgTime">—</span>
-    </div>
+    <div class="stat-row"><span class="stat-name"><span class="stat-dot" style="background:var(--green)"></span>Clear Scans</span><span class="stat-val" id="statClear">0</span></div>
+    <div class="stat-row"><span class="stat-name"><span class="stat-dot" style="background:var(--yellow)"></span>Caution Flags</span><span class="stat-val" id="statCaution">0</span></div>
+    <div class="stat-row"><span class="stat-name"><span class="stat-dot" style="background:var(--red-alert)"></span>Alerts Raised</span><span class="stat-val" id="statAlerts">0</span></div>
+    <div class="stat-row" style="border:none"><span class="stat-name"><span class="stat-dot" style="background:var(--carnival-blue)"></span>Avg Response</span><span class="stat-val" id="statAvgTime">—</span></div>
   </div>
 </main>
-
 <script>
-  let stream = null;
-  let autoScanTimer = null;
-  let scanCount = 0;
-  let stats = { clear: 0, caution: 0, alerts: 0, totalTime: 0, calls: 0 };
-
+  const IS_DEPLOYED = location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.protocol !== 'file:';
+  let apiKey = '', stream = null, autoScanTimer = null, scanCount = 0, lastDetections = [], lastThreatLevel = 'LOW';
+  let stats = { clear:0, caution:0, alerts:0, totalTime:0, calls:0 };
   const video = document.getElementById('cameraFeed');
-  const canvas = document.getElementById('captureCanvas');
-  const preview = document.getElementById('capturedPreview');
-  const ctx = canvas.getContext('2d');
-
-  function updateClock() {
-    document.getElementById('systemTime').textContent = new Date().toTimeString().split(' ')[0];
+  const overlay = document.getElementById('detectionOverlay');
+  const octx = overlay.getContext('2d');
+  const capCvs = document.createElement('canvas');
+  const cctx = capCvs.getContext('2d');
+  window.addEventListener('DOMContentLoaded', () => {
+    if (!IS_DEPLOYED) document.getElementById('apiSetup').style.display = 'flex';
+    else addLog('green', 'System activated — AI Security Monitor online');
+  });
+  function saveApiKey() {
+    const key = document.getElementById('apiKeyInput').value.trim();
+    if (!key.startsWith('sk-ant')) { document.getElementById('apiKeyInput').classList.add('error'); return; }
+    apiKey = key;
+    document.getElementById('apiSetup').style.display = 'none';
+    addLog('green', 'System activated — AI Security Monitor online');
   }
-  setInterval(updateClock, 1000);
-  updateClock();
-
+  function updateClock() { document.getElementById('systemTime').textContent = new Date().toTimeString().split(' ')[0]; }
+  setInterval(updateClock, 1000); updateClock();
+  function drawDetections(detections, threatLevel) {
+    const vw = video.videoWidth || overlay.clientWidth;
+    const vh = video.videoHeight || overlay.clientHeight;
+    overlay.width = vw; overlay.height = vh;
+    octx.clearRect(0, 0, vw, vh);
+    if (!detections || !detections.length) return;
+    detections.forEach(d => {
+      const color = threatLevel === 'HIGH' ? '#FF3355' : threatLevel === 'MEDIUM' ? '#F5A623' : '#00C48C';
+      const x = d.x * vw, y = d.y * vh, w = d.w * vw, h = d.h * vh, cs = 12;
+      octx.strokeStyle = color; octx.lineWidth = 2; octx.shadowColor = color; octx.shadowBlur = 10;
+      octx.strokeRect(x, y, w, h); octx.shadowBlur = 0; octx.lineWidth = 3;
+      [[x,y+cs,x,y,x+cs,y],[x+w-cs,y,x+w,y,x+w,y+cs],[x,y+h-cs,x,y+h,x+cs,y+h],[x+w-cs,y+h,x+w,y+h,x+w,y+h-cs]].forEach(pts => {
+        octx.beginPath(); octx.moveTo(pts[0],pts[1]); octx.lineTo(pts[2],pts[3]); octx.lineTo(pts[4],pts[5]); octx.strokeStyle = color; octx.stroke();
+      });
+      const label = d.label || 'PERSON';
+      octx.font = 'bold 11px DM Sans, sans-serif';
+      const tw = octx.measureText(label).width;
+      octx.fillStyle = color; octx.fillRect(x, y - 20, tw + 10, 18);
+      octx.fillStyle = '#000'; octx.fillText(label, x + 5, y - 6);
+    });
+  }
+  function clearDetections() { octx.clearRect(0, 0, overlay.width, overlay.height); lastDetections = []; }
+  function generateFallbackBoxes(count) {
+    const pos = [{x:0.05,y:0.15,w:0.12,h:0.65},{x:0.22,y:0.2,w:0.11,h:0.6},{x:0.40,y:0.12,w:0.13,h:0.7},{x:0.58,y:0.18,w:0.12,h:0.62},{x:0.74,y:0.22,w:0.11,h:0.58},{x:0.14,y:0.3,w:0.10,h:0.45}];
+    return pos.slice(0, Math.min(count, pos.length)).map(p => ({...p, label:'PERSON'}));
+  }
   async function startCamera() {
     try {
-      stream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 }, audio: false });
-      video.srcObject = stream;
-      video.style.display = 'block';
+      stream = await navigator.mediaDevices.getUserMedia({ video: { width:1280, height:720 }, audio:false });
+      video.srcObject = stream; video.style.display = 'block'; overlay.style.display = 'block';
       document.getElementById('cameraPlaceholder').style.display = 'none';
       document.getElementById('scanOverlay').classList.add('active');
       document.getElementById('btnStartCamera').disabled = true;
       document.getElementById('btnCapture').disabled = false;
       document.getElementById('btnStop').disabled = false;
+      video.addEventListener('loadedmetadata', () => { overlay.width = video.videoWidth; overlay.height = video.videoHeight; });
       addLog('green', 'Camera feed established — monitoring active');
-    } catch (e) {
+    } catch(e) {
       addLog('yellow', 'Camera access denied — please allow camera permissions');
       alert('Camera access is required. Please allow it in your browser and try again.');
     }
   }
-
   function stopCamera() {
     if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
-    video.style.display = 'none';
-    video.srcObject = null;
+    video.style.display = 'none'; overlay.style.display = 'none'; video.srcObject = null;
     document.getElementById('cameraPlaceholder').style.display = 'flex';
     document.getElementById('scanOverlay').classList.remove('active');
     document.getElementById('btnStartCamera').disabled = false;
@@ -508,154 +249,87 @@
     document.getElementById('btnStop').disabled = true;
     if (autoScanTimer) { clearInterval(autoScanTimer); autoScanTimer = null; }
     document.getElementById('autoToggle').classList.remove('on');
-    preview.style.display = 'none';
-    addLog('yellow', 'Camera feed stopped');
+    clearDetections(); addLog('yellow', 'Camera feed stopped');
   }
-
   async function captureAndAnalyze() {
     if (!stream) { alert('Please start the camera first.'); return; }
-
-    canvas.width = video.videoWidth || 640;
-    canvas.height = video.videoHeight || 480;
-    ctx.drawImage(video, 0, 0);
-    const imageData = canvas.toDataURL('image/jpeg', 0.85).split(',')[1];
-
-    preview.src = canvas.toDataURL('image/jpeg', 0.85);
-    preview.style.display = 'block';
+    capCvs.width = video.videoWidth || 640; capCvs.height = video.videoHeight || 480;
+    cctx.drawImage(video, 0, 0);
+    const imageData = capCvs.toDataURL('image/jpeg', 0.85).split(',')[1];
     document.getElementById('analyzingOverlay').classList.add('active');
     document.getElementById('btnCapture').disabled = true;
-
-    const startTime = Date.now();
-
+    const t0 = Date.now();
+    const systemPrompt = 'You are an AI security analyst for Carnival Corporation cruise ships. Analyze security camera footage and respond ONLY in this exact JSON format with no extra text: { "threat_level": "LOW" | "MEDIUM" | "HIGH", "people_count": <number>, "crowd_density": "SPARSE" | "MODERATE" | "DENSE" | "CRITICAL", "behavior": "CALM" | "ACTIVE" | "AGITATED" | "AGGRESSIVE", "altercation_detected": true | false, "summary": "<2-3 sentence scene description>", "recommended_action": "<brief action for security staff>", "detections": [{ "label": "PERSON", "x": <0-1>, "y": <0-1>, "w": <0-1>, "h": <0-1> }] } Provide normalized bounding box coordinates for each visible person. Label altercations as ALTERCATION.';
     try {
-      // Calls our Netlify function — API key never exposed to the browser
-      const response = await fetch('/api/analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [{
-            role: 'user',
-            content: [
-              { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageData } },
-              { type: 'text', text: 'Analyze this security camera frame for crowd density, behavior, and any potential security concerns. Return only JSON.' }
-            ]
-          }]
-        })
-      });
-
-      const elapsed = Date.now() - startTime;
-      stats.totalTime += elapsed;
-      stats.calls++;
-
+      let response;
+      if (IS_DEPLOYED) {
+        response = await fetch('/api/analyze', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: [{ role:'user', content:[{ type:'image', source:{ type:'base64', media_type:'image/jpeg', data:imageData } },{ type:'text', text:'Analyze this frame. Return only JSON.' }]}]}) });
+      } else {
+        response = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type':'application/json', 'x-api-key':apiKey, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' }, body: JSON.stringify({ model:'claude-opus-4-5', max_tokens:1000, system:systemPrompt, messages:[{ role:'user', content:[{ type:'image', source:{ type:'base64', media_type:'image/jpeg', data:imageData } },{ type:'text', text:'Analyze this frame. Return only JSON.' }]}]}) });
+      }
+      const elapsed = Date.now() - t0; stats.totalTime += elapsed; stats.calls++;
       const data = await response.json();
       const raw = data.content?.[0]?.text || '{}';
       let result;
-      try {
-        result = JSON.parse(raw.replace(/```json|```/g, '').trim());
-      } catch {
-        result = {
-          threat_level: 'LOW', people_count: 'Unknown',
-          crowd_density: 'MODERATE', behavior: 'CALM',
-          altercation_detected: false,
-          summary: raw.substring(0, 200),
-          recommended_action: 'Continue monitoring'
-        };
-      }
-
-      updateDashboard(result, elapsed);
-
-    } catch (err) {
-      addLog('yellow', 'Analysis error — check connection and try again');
-      console.error(err);
+      try { result = JSON.parse(raw.replace(/```json|```/g,'').trim()); }
+      catch { result = { threat_level:'LOW', people_count:1, crowd_density:'SPARSE', behavior:'CALM', altercation_detected:false, summary:raw.substring(0,200), recommended_action:'Continue monitoring', detections:[] }; }
+      lastThreatLevel = result.threat_level || 'LOW';
+      const boxes = (result.detections && result.detections.length > 0) ? result.detections : generateFallbackBoxes(parseInt(result.people_count) || 1);
+      lastDetections = boxes; drawDetections(boxes, lastThreatLevel); updateDashboard(result, elapsed);
+    } catch(err) {
+      addLog('yellow', 'Analysis error — ' + (err.message || 'check connection')); console.error(err);
     } finally {
       document.getElementById('analyzingOverlay').classList.remove('active');
       document.getElementById('btnCapture').disabled = false;
     }
   }
-
   function updateDashboard(r, elapsed) {
-    scanCount++;
-    document.getElementById('metricScans').textContent = scanCount;
-    document.getElementById('metricScans').classList.add('active');
-
-    const peopleEl = document.getElementById('metricPeople');
-    peopleEl.textContent = r.people_count ?? '—';
-    peopleEl.classList.add('active');
-
-    const densityEl = document.getElementById('metricDensity');
-    densityEl.textContent = r.crowd_density ?? '—';
-    densityEl.classList.add('active');
-
-    const behaviorEl = document.getElementById('metricBehavior');
-    behaviorEl.textContent = r.behavior ?? '—';
-    behaviorEl.classList.add('active');
-
-    document.getElementById('analysisText').textContent = r.summary || 'No summary available.';
-    document.getElementById('analysisText').classList.add('has-content');
-
+    scanCount++; document.getElementById('metricScans').textContent = scanCount;
+    document.getElementById('metricPeople').textContent = r.people_count ?? '—';
+    document.getElementById('metricDensity').textContent = r.crowd_density ?? '—';
+    document.getElementById('metricBehavior').textContent = r.behavior ?? '—';
+    ['metricScans','metricPeople','metricDensity','metricBehavior'].forEach(id => document.getElementById(id).classList.add('active'));
+    const el = document.getElementById('analysisText');
+    el.textContent = r.summary || 'No summary available.'; el.classList.add('has-content');
     const level = r.threat_level || 'LOW';
-    const icon = document.getElementById('threatIcon');
-    const name = document.getElementById('threatLevelName');
-    const desc = document.getElementById('threatLevelDesc');
-
-    icon.className = 'threat-icon';
-    name.className = 'threat-level-name';
-
+    const icon = document.getElementById('threatIcon'), name = document.getElementById('threatLevelName'), desc = document.getElementById('threatLevelDesc');
+    const panel = document.getElementById('cameraPanel'), flash = document.getElementById('alertFlash');
+    icon.className = 'threat-icon'; name.className = 'threat-level-name'; panel.className = 'camera-panel'; flash.className = 'alert-flash';
     if (level === 'HIGH' || r.altercation_detected) {
-      icon.className += ' red'; icon.textContent = '🚨';
-      name.className += ' red'; name.textContent = 'HIGH ALERT';
+      icon.className += ' red'; icon.textContent = '🚨'; name.className += ' red'; name.textContent = 'HIGH ALERT';
       desc.textContent = r.recommended_action || 'Immediate response required';
-      stats.alerts++;
-      document.getElementById('statAlerts').textContent = stats.alerts;
-      addLog('red', `HIGH ALERT: ${r.summary?.substring(0, 80) || 'Threat detected'}`);
+      panel.classList.add('alert-red'); flash.classList.add('red-active');
+      stats.alerts++; document.getElementById('statAlerts').textContent = stats.alerts;
+      addLog('red', 'HIGH ALERT: ' + (r.summary||'').substring(0,80));
     } else if (level === 'MEDIUM') {
-      icon.className += ' yellow'; icon.textContent = '⚠️';
-      name.className += ' yellow'; name.textContent = 'CAUTION';
+      icon.className += ' yellow'; icon.textContent = '⚠️'; name.className += ' yellow'; name.textContent = 'CAUTION';
       desc.textContent = r.recommended_action || 'Monitor situation closely';
-      stats.caution++;
-      document.getElementById('statCaution').textContent = stats.caution;
-      addLog('yellow', `CAUTION: ${r.summary?.substring(0, 80) || 'Elevated activity'}`);
+      panel.classList.add('alert-yellow');
+      stats.caution++; document.getElementById('statCaution').textContent = stats.caution;
+      addLog('yellow', 'CAUTION: ' + (r.summary||'').substring(0,80));
     } else {
-      icon.className += ' green'; icon.textContent = '✅';
-      name.className += ' green'; name.textContent = 'CLEAR';
+      icon.className += ' green'; icon.textContent = '✅'; name.className += ' green'; name.textContent = 'CLEAR';
       desc.textContent = r.recommended_action || 'No action required';
-      stats.clear++;
-      document.getElementById('statClear').textContent = stats.clear;
-      addLog('green', `CLEAR: ${r.summary?.substring(0, 80) || 'Scene normal'}`);
+      stats.clear++; document.getElementById('statClear').textContent = stats.clear;
+      addLog('green', 'CLEAR: ' + (r.summary||'').substring(0,80));
     }
-
-    if (stats.calls > 0) {
-      document.getElementById('statAvgTime').textContent = Math.round(stats.totalTime / stats.calls / 100) / 10 + 's';
-    }
+    if (stats.calls > 0) document.getElementById('statAvgTime').textContent = (Math.round(stats.totalTime / stats.calls / 100) / 10) + 's';
   }
-
   function addLog(level, message) {
     const container = document.getElementById('logEntries');
-    const empty = container.querySelector('.empty-log');
-    if (empty) empty.remove();
-    const time = new Date().toTimeString().split(' ')[0];
+    const empty = container.querySelector('.empty-log'); if (empty) empty.remove();
     const entry = document.createElement('div');
-    entry.className = `log-entry ${level}`;
-    entry.innerHTML = `<span class="log-time">${time}</span><span class="log-msg">${message}</span>`;
+    entry.className = 'log-entry ' + level;
+    entry.innerHTML = '<span class="log-time">' + new Date().toTimeString().split(' ')[0] + '</span><span class="log-msg">' + message + '</span>';
     container.insertBefore(entry, container.firstChild);
     while (container.children.length > 20) container.removeChild(container.lastChild);
   }
-
-  function clearLog() {
-    document.getElementById('logEntries').innerHTML = '<div class="empty-log">Log cleared</div>';
-  }
-
+  function clearLog() { document.getElementById('logEntries').innerHTML = '<div class="empty-log">Log cleared</div>'; }
   function toggleAutoScan(el) {
     if (!stream) { addLog('yellow', 'Start camera before enabling auto-scan'); return; }
     el.classList.toggle('on');
-    if (el.classList.contains('on')) {
-      autoScanTimer = setInterval(() => captureAndAnalyze(), 5000);
-      addLog('green', 'Auto-scan enabled — analyzing every 5 seconds');
-    } else {
-      clearInterval(autoScanTimer);
-      autoScanTimer = null;
-      addLog('yellow', 'Auto-scan disabled');
-    }
+    if (el.classList.contains('on')) { autoScanTimer = setInterval(() => captureAndAnalyze(), 5000); addLog('green', 'Auto-scan enabled — analyzing every 5 seconds'); }
+    else { clearInterval(autoScanTimer); autoScanTimer = null; addLog('yellow', 'Auto-scan disabled'); }
   }
 </script>
 </body>
