@@ -22,15 +22,6 @@
   body { background: var(--dark-navy); color: var(--carnival-white); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
   body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(1,78,143,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(1,78,143,0.15) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
   body::after { content: ''; position: fixed; top: -200px; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(ellipse, rgba(1,78,143,0.35) 0%, transparent 70%); pointer-events: none; z-index: 0; }
-  .api-setup { position: fixed; inset: 0; background: rgba(0,33,61,0.97); z-index: 100; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
-  .api-modal { background: var(--mid-blue); border: 1px solid rgba(1,78,143,0.5); border-radius: 20px; padding: 40px; width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0,0,0,0.5); }
-  .api-modal svg { margin: 0 auto 20px; display: block; }
-  .api-modal h2 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; margin-bottom: 6px; }
-  .api-modal p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 24px; }
-  .api-input { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(1,78,143,0.4); border-radius: 10px; padding: 12px 16px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; margin-bottom: 16px; transition: border-color 0.2s; }
-  .api-input:focus { border-color: var(--carnival-blue); }
-  .api-input.error { border-color: var(--carnival-red); }
-  .api-note { margin-top: 14px; font-size: 11px; color: rgba(255,255,255,0.3); }
   header { position: relative; z-index: 10; background: linear-gradient(135deg, var(--dark-navy) 0%, var(--mid-blue) 100%); border-bottom: 2px solid var(--carnival-red); padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 72px; box-shadow: 0 4px 32px rgba(182,27,56,0.2); }
   .logo-area { display: flex; align-items: center; gap: 16px; }
   .funnel-logo { width: 48px; height: 48px; flex-shrink: 0; }
@@ -74,9 +65,7 @@
   .camera-controls { padding: 16px 20px; border-top: 1px solid var(--glass-border); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .btn { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.5px; border: none; border-radius: 8px; padding: 10px 20px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
   .btn-primary{background:var(--carnival-blue);color:white} .btn-primary:hover{background:#0260B0;transform:translateY(-1px)} .btn-primary:disabled{opacity:0.4;cursor:not-allowed;transform:none}
-  .btn-danger{background:var(--carnival-red);color:white} .btn-danger:hover{background:#D4203F;transform:translateY(-1px)}
   .btn-ghost{background:var(--glass);color:rgba(255,255,255,0.7);border:1px solid var(--glass-border)} .btn-ghost:hover{background:rgba(255,255,255,0.1)} .btn-ghost:disabled{opacity:0.4;cursor:not-allowed}
-  .btn-full{width:100%;justify-content:center;padding:14px;font-size:14px;letter-spacing:1px}
   .auto-toggle { margin-left:auto;display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,0.5); }
   .toggle-switch { position:relative;width:40px;height:22px;background:rgba(255,255,255,0.15);border-radius:11px;cursor:pointer;transition:background 0.2s; }
   .toggle-switch.on{background:var(--carnival-blue)} .toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.2s} .toggle-switch.on::after{transform:translateX(18px)}
@@ -114,16 +103,6 @@
 </style>
 </head>
 <body>
-<div class="api-setup" id="apiSetup" style="display:none">
-  <div class="api-modal">
-    <svg width="72" height="72" viewBox="0 0 72 72" fill="none"><rect width="72" height="72" rx="14" fill="#014E8F"/><path d="M36 12 L52 36 L52 58 L20 58 L20 36 Z" fill="#B61B38"/><path d="M28 36 L44 36 L44 58 L28 58 Z" fill="white" opacity="0.9"/><rect x="30" y="8" width="12" height="28" rx="6" fill="white"/></svg>
-    <h2>CARNIVAL SECURITY AI</h2>
-    <p>Running locally. Enter your Anthropic API key to activate.<br>This is only needed when testing on your own computer.</p>
-    <input type="password" class="api-input" id="apiKeyInput" placeholder="sk-ant-api...">
-    <button class="btn btn-danger btn-full" onclick="saveApiKey()">ACTIVATE SYSTEM</button>
-    <p class="api-note">Your key stays in your browser session only and is never stored or shared.</p>
-  </div>
-</div>
 <header>
   <div class="logo-area">
     <svg class="funnel-logo" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="10" fill="#014E8F"/><path d="M24 8 L36 24 L36 40 L12 40 L12 24 Z" fill="#B61B38"/><path d="M18 24 L30 24 L30 40 L18 40 Z" fill="white" opacity="0.9"/><rect x="20" y="5" width="8" height="19" rx="4" fill="white"/></svg>
@@ -176,27 +155,20 @@
   </div>
 </main>
 <script>
-  const IS_DEPLOYED = location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.protocol !== 'file:';
-  let apiKey = '', stream = null, autoScanTimer = null, scanCount = 0, lastDetections = [], lastThreatLevel = 'LOW';
+  const API_KEY = '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';
+  let stream = null, autoScanTimer = null, scanCount = 0, lastDetections = [], lastThreatLevel = 'LOW';
   let stats = { clear:0, caution:0, alerts:0, totalTime:0, calls:0 };
   const video = document.getElementById('cameraFeed');
   const overlay = document.getElementById('detectionOverlay');
   const octx = overlay.getContext('2d');
   const capCvs = document.createElement('canvas');
   const cctx = capCvs.getContext('2d');
-  window.addEventListener('DOMContentLoaded', () => {
-    if (!IS_DEPLOYED) document.getElementById('apiSetup').style.display = 'flex';
-    else addLog('green', 'System activated — AI Security Monitor online');
-  });
-  function saveApiKey() {
-    const key = document.getElementById('apiKeyInput').value.trim();
-    if (!key.startsWith('sk-ant')) { document.getElementById('apiKeyInput').classList.add('error'); return; }
-    apiKey = key;
-    document.getElementById('apiSetup').style.display = 'none';
-    addLog('green', 'System activated — AI Security Monitor online');
-  }
+
+  window.addEventListener('DOMContentLoaded', () => addLog('green', 'System activated — AI Security Monitor online'));
+
   function updateClock() { document.getElementById('systemTime').textContent = new Date().toTimeString().split(' ')[0]; }
   setInterval(updateClock, 1000); updateClock();
+
   function drawDetections(detections, threatLevel) {
     const vw = video.videoWidth || overlay.clientWidth;
     const vh = video.videoHeight || overlay.clientHeight;
@@ -218,11 +190,14 @@
       octx.fillStyle = '#000'; octx.fillText(label, x + 5, y - 6);
     });
   }
+
   function clearDetections() { octx.clearRect(0, 0, overlay.width, overlay.height); lastDetections = []; }
+
   function generateFallbackBoxes(count) {
     const pos = [{x:0.05,y:0.15,w:0.12,h:0.65},{x:0.22,y:0.2,w:0.11,h:0.6},{x:0.40,y:0.12,w:0.13,h:0.7},{x:0.58,y:0.18,w:0.12,h:0.62},{x:0.74,y:0.22,w:0.11,h:0.58},{x:0.14,y:0.3,w:0.10,h:0.45}];
     return pos.slice(0, Math.min(count, pos.length)).map(p => ({...p, label:'PERSON'}));
   }
+
   async function startCamera() {
     try {
       stream = await navigator.mediaDevices.getUserMedia({ video: { width:1280, height:720 }, audio:false });
@@ -236,9 +211,9 @@
       addLog('green', 'Camera feed established — monitoring active');
     } catch(e) {
       addLog('yellow', 'Camera access denied — please allow camera permissions');
-      alert('Camera access is required. Please allow it in your browser and try again.');
     }
   }
+
   function stopCamera() {
     if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
     video.style.display = 'none'; overlay.style.display = 'none'; video.srcObject = null;
@@ -251,6 +226,7 @@
     document.getElementById('autoToggle').classList.remove('on');
     clearDetections(); addLog('yellow', 'Camera feed stopped');
   }
+
   async function captureAndAnalyze() {
     if (!stream) { alert('Please start the camera first.'); return; }
     capCvs.width = video.videoWidth || 640; capCvs.height = video.videoHeight || 480;
@@ -261,12 +237,11 @@
     const t0 = Date.now();
     const systemPrompt = 'You are an AI security analyst for Carnival Corporation cruise ships. Analyze security camera footage and respond ONLY in this exact JSON format with no extra text: { "threat_level": "LOW" | "MEDIUM" | "HIGH", "people_count": <number>, "crowd_density": "SPARSE" | "MODERATE" | "DENSE" | "CRITICAL", "behavior": "CALM" | "ACTIVE" | "AGITATED" | "AGGRESSIVE", "altercation_detected": true | false, "summary": "<2-3 sentence scene description>", "recommended_action": "<brief action for security staff>", "detections": [{ "label": "PERSON", "x": <0-1>, "y": <0-1>, "w": <0-1>, "h": <0-1> }] } Provide normalized bounding box coordinates for each visible person. Label altercations as ALTERCATION.';
     try {
-      let response;
-      if (IS_DEPLOYED) {
-        response = await fetch('/api/analyze', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: [{ role:'user', content:[{ type:'image', source:{ type:'base64', media_type:'image/jpeg', data:imageData } },{ type:'text', text:'Analyze this frame. Return only JSON.' }]}]}) });
-      } else {
-        response = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type':'application/json', 'x-api-key':apiKey, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' }, body: JSON.stringify({ model:'claude-opus-4-5', max_tokens:1000, system:systemPrompt, messages:[{ role:'user', content:[{ type:'image', source:{ type:'base64', media_type:'image/jpeg', data:imageData } },{ type:'text', text:'Analyze this frame. Return only JSON.' }]}]}) });
-      }
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json', 'x-api-key': API_KEY, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' },
+        body: JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:1000, system:systemPrompt, messages:[{ role:'user', content:[{ type:'image', source:{ type:'base64', media_type:'image/jpeg', data:imageData } },{ type:'text', text:'Analyze this frame. Return only JSON.' }]}]})
+      });
       const elapsed = Date.now() - t0; stats.totalTime += elapsed; stats.calls++;
       const data = await response.json();
       const raw = data.content?.[0]?.text || '{}';
@@ -283,6 +258,7 @@
       document.getElementById('btnCapture').disabled = false;
     }
   }
+
   function updateDashboard(r, elapsed) {
     scanCount++; document.getElementById('metricScans').textContent = scanCount;
     document.getElementById('metricPeople').textContent = r.people_count ?? '—';
@@ -315,6 +291,7 @@
     }
     if (stats.calls > 0) document.getElementById('statAvgTime').textContent = (Math.round(stats.totalTime / stats.calls / 100) / 10) + 's';
   }
+
   function addLog(level, message) {
     const container = document.getElementById('logEntries');
     const empty = container.querySelector('.empty-log'); if (empty) empty.remove();
@@ -324,7 +301,9 @@
     container.insertBefore(entry, container.firstChild);
     while (container.children.length > 20) container.removeChild(container.lastChild);
   }
+
   function clearLog() { document.getElementById('logEntries').innerHTML = '<div class="empty-log">Log cleared</div>'; }
+
   function toggleAutoScan(el) {
     if (!stream) { addLog('yellow', 'Start camera before enabling auto-scan'); return; }
     el.classList.toggle('on');
